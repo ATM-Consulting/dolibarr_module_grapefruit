@@ -183,9 +183,11 @@ class TGrappeFruit {
 
 				//Add attached files
 				$fileparams = dol_most_recent_file($conf->facture->dir_output . '/' . $object->ref, preg_quote($object->ref, '/').'[^\-]+');
-				$_SESSION["listofpaths"]=$fileparams['fullname'];
-				$_SESSION["listofnames"]=basename($fileparams['fullname']);
-				$_SESSION["listofmimes"]=dol_mimetype($fileparams['fullname']);
+				if (is_array($fileparams) && array_key_exists('fullname', $fileparams) && !empty($fileparams['fullname'])) {
+					$_SESSION["listofpaths"]=$fileparams['fullname'];
+					$_SESSION["listofnames"]=basename($fileparams['fullname']);
+					$_SESSION["listofmimes"]=dol_mimetype($fileparams['fullname']);
+				}
 
 				$action='send';
 				$actiontypecode='AC_FAC';
