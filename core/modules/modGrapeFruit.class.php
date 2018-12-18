@@ -90,12 +90,12 @@ class modGrapeFruit extends DolibarrModules
 		//                        );
 		$this->module_parts = array(
 			'triggers' => 1
-			,'hooks' => array('contactcard', 'propalcard', 'suppliercard', 'pdfgeneration','invoicecard','ordercard', 'ordersuppliercard', 'thirdpartycard', 'fullcalendardao','globalcard', 'invoicesuppliercard','index')
+			,'hooks' => array('orderlist','contactcard', 'propalcard', 'suppliercard', 'pdfgeneration','invoicecard','ordercard', 'ordersuppliercard', 'thirdpartycard', 'fullcalendardao','globalcard', 'invoicesuppliercard','index')
 			,'models' => 1
 			,'substitutions'=>1
 			/*,'tpl'=>1*/
-			,'css' => array('/dolibarr_module_grapefruit/css/style.css')
-			,'js' => array('/dolibarr_module_grapefruit/js/script.js')
+			,'css' => array('/grapefruit/css/style.css')
+			,'js' => array('/grapefruit/js/script.js')
 		);
 		
 		

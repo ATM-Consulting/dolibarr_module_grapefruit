@@ -6,7 +6,7 @@ $(document).ready(function(){
     
     if (test > 0)
     {
-    	$(".oddeven").addClass("checkable")
+    	$(".oddeven").addClass("checkable");
     }
 
     $( ".oddeven" ).click(function() {

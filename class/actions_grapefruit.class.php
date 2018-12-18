@@ -50,6 +50,18 @@ class ActionsGrapeFruit
 	{
 	}
 
+	function printFieldListFooter($parameters, &$object, &$action, $hookmanager)
+	{
+		if($parameters['currentcontext'] == "orderlist")
+		{
+			?>
+				<script type="text/javascript">
+						$('.oddeven').addClass("checkable");
+				</script>
+			<?php
+		}
+	}
+	
 	/**
 	 * Overloading the doActions function : replacing the parent's function with the one below
 	 *
