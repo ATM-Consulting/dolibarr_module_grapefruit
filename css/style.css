@@ -1,0 +1,12 @@
+.checked {
+	background: #80ffcc !important;
+}
+.unchecked {
+	background: #ffb84d !important;
+}
+.checked:hover {
+	background: #4dffb8 !important;
+}
+.unchecked:hover {
+	background: #ffa31a !important;
+}

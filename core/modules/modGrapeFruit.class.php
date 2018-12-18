@@ -94,8 +94,11 @@ class modGrapeFruit extends DolibarrModules
 			,'models' => 1
 			,'substitutions'=>1
 			/*,'tpl'=>1*/
+			,'css' => array('/dolibarr_module_grapefruit/css/style.css')
+			,'js' => array('/dolibarr_module_grapefruit/js/script.js')
 		);
-
+		
+		
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/grapefruit/temp");
 		$this->dirs = array();
