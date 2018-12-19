@@ -50,16 +50,21 @@ class ActionsGrapeFruit
 	{
 	}
 
-	function printFieldListFooter($parameters, &$object, &$action, $hookmanager)
+	function addClassHighLight($parameters)
 	{
 		if($parameters['currentcontext'] == "orderlist")
 		{
 			?>
 				<script type="text/javascript">
-						$('.oddeven').addClass("checkable");
+					$('table').addClass("addClassHighLight");
 				</script>
 			<?php
 		}
+	}
+	
+	function printFieldListFooter($parameters, &$object, &$action, $hookmanager)
+	{
+		$this->addClassHighLight($parameters);
 	}
 	
 	/**
