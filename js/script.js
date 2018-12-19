@@ -2,7 +2,7 @@ $(document).ready(function(){
 	    
     var url = location.href;
     
-    var test = url.indexOf("/compta/bank/releve.php?account=1&num=");// No hook on this place ,bullshit
+    var test = url.indexOf("/compta/bank/releve.php?account=");// No hook on this place ,bullshit
     
     if (test > 0)
     {
