@@ -2,32 +2,29 @@ $(document).ready(function(){
 	    
     var url = location.href;
     
-    var test = url.indexOf("/compta/bank/releve.php?account=1&num=");
+    var test = url.indexOf("/compta/bank/releve.php?account=1&num=");// No hook on this place ,bullshit
     
     if (test > 0)
     {
-    	$(".oddeven").addClass("checkable");
+    	$("table").addClass("addClassHighLight");
     }
 
-    $( ".oddeven" ).click(function() {
-    	if ($(".oddeven").hasClass("checkable"))
-    	{
-    		if ($(this).hasClass("checked") == false && $(this).hasClass("unchecked") == false)
-    		{
-    			$(this).addClass("checked");
-    		}
-    		else if ($(this).hasClass("checked") == true)
-    		{
-    			$(this).removeClass("checked");
-    			$(this).addClass("unchecked");
-    		}
-    		else
-    		{
-    			$(this).removeClass("unchecked");
-    		}
-    	}
+    $(".addClassHighLight .oddeven").on("click", function()
+    {
+		if ($(this).hasClass("checkedAddClassHighLight") == false && $(this).hasClass("uncheckedAddClassHighLight") == false)
+		{
+			$(this).addClass("checkedAddClassHighLight");
+		}
+		else if ($(this).hasClass("checkedAddClassHighLight") == true)
+		{
+			$(this).removeClass("checkedAddClassHighLight").addClass("uncheckedAddClassHighLight");
+		}
+		else
+		{
+			$(this).removeClass("uncheckedAddClassHighLight");
+		}
     });
-    
+   
        
 });
 

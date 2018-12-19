@@ -1,16 +1,13 @@
-.checked {
+.checkedAddClassHighLight {
 	background: #80ffcc !important;
 }
-.unchecked {
+.uncheckedAddClassHighLight {
 	background: #ffb84d !important;
 }
-.checked:hover {
+.checkedAddClassHighLight:hover {
 	background: #4dffb8 !important;
 }
-.unchecked:hover {
+.uncheckedAddClassHighLight:hover {
 	background: #ffa31a !important;
 }
 
-.checkable {
-
-}
