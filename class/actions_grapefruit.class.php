@@ -56,7 +56,7 @@ class ActionsGrapeFruit
 		{
 			?>
 				<script type="text/javascript">
-					$('table').addClass("addClassHighLight");
+					$('table').addClass("addclasshighlight");
 				</script>
 			<?php
 		}

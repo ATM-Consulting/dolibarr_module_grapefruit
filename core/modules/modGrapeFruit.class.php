@@ -95,7 +95,7 @@ class modGrapeFruit extends DolibarrModules
 			,'substitutions'=>1
 			/*,'tpl'=>1*/
 			,'css' => array('/grapefruit/css/style.css')
-			,'js' => array('/grapefruit/js/script.js')
+			,'js' => array('/grapefruit/js/script.js.php')
 		);
 		
 		

@@ -36,6 +36,7 @@ dol_include_once('/core/class/html.formorder.class.php');
 dol_include_once('/grapefruit/class/grapefruit.class.php');
 dol_include_once('/projet/class/task.class.php');
 dol_include_once('/core/class/html.formcompany.class.php');
+dol_include_once('/abricot/includes/lib/admin.lib.php');
 
 
 // Translations
@@ -947,6 +948,8 @@ print $form->selectyesno('GRAPEFRUIT_FILTER_HOMEPAGE_BY_USER', $conf->global->GR
 print '<input type="submit" class="button" value="' . $langs->trans("Modify") . '">';
 print '</form>';
 print '</td></tr>';
+
+print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE');
 
 print '</table>';
 
