@@ -50,6 +50,51 @@ class ActionsGrapeFruit
 	{
 	}
 
+	function highlightcolor($parameters)
+	{
+		global $conf, $langs, $db, $user, $object;
+		$langs->load("users");
+		
+		
+		$defautltColor = (!empty($object->conf->check_COLOR_HIGHLIGHTLINE)) ? $object->conf->MAIN_COLOR_HIGHLIGHT_LINE : '#ff0000';
+		
+		$change_color = '#1EE72C';
+		
+		if(!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR))
+		{
+
+			print '<tr><td>Couleur de surbrillance</td>';
+			print '<td><div style="height:10px;width:40px;background:'.$defautltColor.'">&nbsp</div></td> ';
+						
+			print '<td align="left" class="nowrap" width="20%"><input name="check_COLOR_HIGHLIGHTLINE" id="check_COLOR_HIGHLIGHTLINE" type="checkbox" '.(! empty($object->conf->check_COLOR_HIGHLIGHTLINE)?" checked":"");
+			print '> '.$langs->trans("UsePersonalValue").'</td>';
+			
+			print '<td><input type="color" id="MAIN_COLOR_HIGHLIGHT_LINE" name="MAIN_COLOR_HIGHLIGHT_LINE" value="'.$defautltColor .'"/></td>';
+			print '</tr>';
+			
+		}
+
+	}
+	
+	function definecolor($parameters)
+	{
+		global $conf, $langs, $db, $user, $object;
+		
+// 		if (GETPOST("check_COLOR_HIGHLIGHTLINE") == "on") {
+// 			$tabparam["check_COLOR_HIGHLIGHTLINE"] = $_POST["check_COLOR_HIGHLIGHTLINE"];
+// 		} else {
+// 			$tabparam["check_COLOR_HIGHLIGHTLINEHLIGHT_LINE"] = '';
+// 		}
+		
+		if (GETPOST("check_COLOR_HIGHLIGHTLINE") == "on") {
+			$tabparam["MAIN_COLOR_HIGHLIGHT_LINE"] = $_POST["MAIN_COLOR_HIGHLIGHT_LINE"];
+		} else {
+			$tabparam["MAIN_COLOR_HIGHLIGHT_LINE"] = '';
+		}
+		
+		dol_set_user_param($db, $conf, $object, $tabparam);
+	}
+	
 	function addClassHighLight($parameters)
 	{
 		if($parameters['currentcontext'] == "orderlist")

@@ -951,6 +951,8 @@ print '</td></tr>';
 
 print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE');
 
+print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE_COLOR');
+
 print '</table>';
 
 llxFooter();

@@ -22,7 +22,7 @@
 			}
 			else if ($(this).hasClass("checkedAddClassHighLight") == true)
 			{
-				$(this).removeClass("checkedAddClassHighLight").addClass("uncheckedAddClassHighLight");
+				$(this).switchClass("checkedAddClassHighLight").addClass("uncheckedAddClassHighLight");
 			}
 			else
 			{
