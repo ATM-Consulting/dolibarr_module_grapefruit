@@ -6,8 +6,8 @@ header('Cache-Control: max-age=31536000, must-revalidate');
 require __DIR__ . '/../config.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/usergroups.lib.php';
 
-$highlightcolor1 = $user->conf->MAIN_COLOR_HIGHLIGHT_LINE;
-
+$highlightcolor1 = $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1;
+$highlightcolor2 = $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2;
 ?>
 
 .checkedAddClassHighLight {
@@ -15,7 +15,7 @@ $highlightcolor1 = $user->conf->MAIN_COLOR_HIGHLIGHT_LINE;
 	opacity:0.8;
 }
 .uncheckedAddClassHighLight {
-	background: #ffb84d !important;
+	background: <?php echo $highlightcolor2 ?> !important;
 	opacity:0.8;
 }
 .checkedAddClassHighLight:hover {
@@ -23,7 +23,7 @@ $highlightcolor1 = $user->conf->MAIN_COLOR_HIGHLIGHT_LINE;
 	opacity:1;
 }
 .uncheckedAddClassHighLight:hover {
-	background: #ffa31a !important;
+	background: <?php echo $highlightcolor2 ?> !important;
 	opacity:1;
 }
 

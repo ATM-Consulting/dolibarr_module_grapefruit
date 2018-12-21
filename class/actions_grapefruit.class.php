@@ -49,51 +49,43 @@ class ActionsGrapeFruit
 	public function __construct()
 	{
 	}
+	
 
 	function highlightcolor($parameters)
 	{
 		global $conf, $langs, $db, $user, $object;
 		$langs->load("users");
 		
-		
-		$defautltColor = (!empty($object->conf->check_COLOR_HIGHLIGHTLINE)) ? $object->conf->MAIN_COLOR_HIGHLIGHT_LINE : '#ff0000';
-		
-		$change_color = '#1EE72C';
-		
-		if(!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR))
+		$action = $_GET['action'];
+
+		if ($action == 'edit')
 		{
-
-			print '<tr><td>Couleur de surbrillance</td>';
-			print '<td><div style="height:10px;width:40px;background:'.$defautltColor.'">&nbsp</div></td> ';
-						
-			print '<td align="left" class="nowrap" width="20%"><input name="check_COLOR_HIGHLIGHTLINE" id="check_COLOR_HIGHLIGHTLINE" type="checkbox" '.(! empty($object->conf->check_COLOR_HIGHLIGHTLINE)?" checked":"");
-			print '> '.$langs->trans("UsePersonalValue").'</td>';
+ 			$defaultColor_1 = empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT) ? $conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT : $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1;
+ 			$defaultColor_2 = empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT) ? $conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT : $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2;
+			//var_dump($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT);
 			
-			print '<td><input type="color" id="MAIN_COLOR_HIGHLIGHT_LINE" name="MAIN_COLOR_HIGHLIGHT_LINE" value="'.$defautltColor .'"/></td>';
-			print '</tr>';
-			
-		}
+			$userColor_1 = (! empty($user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1)) ? $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1 : $defaultColor_1;
+			$userColor_2 = (! empty($user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2)) ? $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2 : $defaultColor_2;
 
-	}
-	
-	function definecolor($parameters)
-	{
-		global $conf, $langs, $db, $user, $object;
-		
-// 		if (GETPOST("check_COLOR_HIGHLIGHTLINE") == "on") {
-// 			$tabparam["check_COLOR_HIGHLIGHTLINE"] = $_POST["check_COLOR_HIGHLIGHTLINE"];
-// 		} else {
-// 			$tabparam["check_COLOR_HIGHLIGHTLINEHLIGHT_LINE"] = '';
-// 		}
-		
-		if (GETPOST("check_COLOR_HIGHLIGHTLINE") == "on") {
-			$tabparam["MAIN_COLOR_HIGHLIGHT_LINE"] = $_POST["MAIN_COLOR_HIGHLIGHT_LINE"];
-		} else {
-			$tabparam["MAIN_COLOR_HIGHLIGHT_LINE"] = '';
+			if(!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT))
+			{
+				print '<tr><td>Couleur de surbrillance 1</td>';
+				print '<td><div style="height:10px;width:40px;background:'.$defaultColor_1.'">&nbsp</div></td> ';
+				print '<td align="left" class="nowrap" width="20%"><input name="check_COLOR_HIGHLIGHT_LINE_1" id="check_COLOR_HIGHLIGHT_LINE_1" type="checkbox" '.(! empty($user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1)?" checked":"");
+				print '/> '.$langs->trans("UsePersonalValue").'</td>';
+				print '<td><input type="color" id="MAIN_COLOR_HIGHLIGHT_LINE_1" name="MAIN_COLOR_HIGHLIGHT_LINE_1" value="'.$userColor_1 .'"/></td>';
+				print '</tr>';
+				
+				print '<tr><td>Couleur de surbrillance 2</td>';
+				print '<td><div style="height:10px;width:40px;background:'.$defaultColor_2.'">&nbsp</div></td> ';
+				print '<td align="left" class="nowrap" width="20%"><input name="check_COLOR_HIGHLIGHT_LINE_2" id="check_COLOR_HIGHLIGHT_LINE_2" type="checkbox" '.(! empty($user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2)?" checked":"");
+				print '/> '.$langs->trans("UsePersonalValue").'</td>';
+				print '<td><input type="color" id="MAIN_COLOR_HIGHLIGHT_LINE_2" name="MAIN_COLOR_HIGHLIGHT_LINE_2" value="'.$userColor_2 .'"/></td>';
+				print '</tr>';
+			}
 		}
-		
-		dol_set_user_param($db, $conf, $object, $tabparam);
 	}
+
 	
 	function addClassHighLight($parameters)
 	{
@@ -130,7 +122,29 @@ class ActionsGrapeFruit
 		require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 		
 		$TContext = explode(':', $parameters['context']);
+		
+		if(in_array('userihm', $TContext) && $action == 'update')
+		{
+			if (GETPOST("check_COLOR_HIGHLIGHT_LINE_1") == "on")
+			{
+				$tabparam["MAIN_COLOR_HIGHLIGHT_LINE_1"] = $_POST["MAIN_COLOR_HIGHLIGHT_LINE_1"];
+				
+			} else
+			{
+				$tabparam["MAIN_COLOR_HIGHLIGHT_LINE_1"] = '';
+			}
+			if (GETPOST("check_COLOR_HIGHLIGHT_LINE_2") == "on")
+			{
+				$tabparam["MAIN_COLOR_HIGHLIGHT_LINE_2"] = $_POST["MAIN_COLOR_HIGHLIGHT_LINE_2"];
+				
+			} else
+			{
+				$tabparam["MAIN_COLOR_HIGHLIGHT_LINE_2"] = '';
+			}
 
+			dol_set_user_param($db, $conf, $object, $tabparam);
+		}
+		
 		$actionATM = GETPOST('actionATM');
 		if ($parameters['currentcontext'] == 'ordercard' && $object->statut >= 1 && !empty($conf->global->GRAPEFRUIT_ALLOW_CREATE_BILL_EXPRESS))
 		{

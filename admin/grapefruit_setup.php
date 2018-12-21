@@ -64,6 +64,7 @@ $object=new TGrappeFruit();
  */
 if (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
+// 	var_dump($code);exit;
 	if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0) {
 
 		if ($code=='GRAPEFRUIT_MANAGE_DOWNLOAD_OWN_DOC_USERS') {
@@ -951,7 +952,32 @@ print '</td></tr>';
 
 print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE');
 
-print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE_COLOR');
+print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1');
+print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2');
+
+$var = ! $var;
+print '<tr ' . $bc[$var] . '>';
+print '<td>GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT</td>';
+print '<td align="center" width="20">&nbsp;</td>';
+print '<td align="right" width="300">';
+print '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">';
+print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+print '<input type="hidden" name="action" value="set_GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT">';
+print '<input type="color" value="#b3fff0">';
+print '</form>';
+print '</td></tr>';
+
+$var = ! $var;
+print '<tr ' . $bc[$var] . '>';
+print '<td>GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT</td>';
+print '<td align="center" width="20">&nbsp;</td>';
+print '<td align="right" width="300">';
+print '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">';
+print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+print '<input type="hidden" name="action" value="set_GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT">';
+print '<input type="color" value="#b3c6ff">';
+print '</form>';
+print '</td></tr>';
 
 print '</table>';
 
