@@ -64,7 +64,7 @@ $object=new TGrappeFruit();
  */
 if (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
-// 	var_dump($code);exit;
+
 	if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0) {
 
 		if ($code=='GRAPEFRUIT_MANAGE_DOWNLOAD_OWN_DOC_USERS') {
@@ -85,6 +85,7 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 
 if (preg_match('/del_(.*)/', $action, $reg)) {
 	$code = $reg[1];
+//var_dump($code);exit;
 	if (dolibarr_del_const($db, $code, 0) > 0) {
 		Header("Location: " . $_SERVER["PHP_SELF"]);
 		exit();
@@ -951,9 +952,10 @@ print '</form>';
 print '</td></tr>';
 
 print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE');
-
 print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1');
 print setup_print_on_off('GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2');
+
+global $conf;
 
 $var = ! $var;
 print '<tr ' . $bc[$var] . '>';
@@ -961,9 +963,11 @@ print '<td>GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">';
-print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-print '<input type="hidden" name="action" value="set_GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT">';
-print '<input type="color" value="#b3fff0">';
+print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '"/>';
+print '<input type="hidden" name="action" value="set_GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT"/>';
+$color1 = (!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT)) ? $conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT : '#b3c6ff';
+print '<input type="color" value="'.$color1.'"/>';
+print '<input type="submit" class="button" value="' . $langs->trans("Modify") . '"/>';
 print '</form>';
 print '</td></tr>';
 
@@ -973,9 +977,11 @@ print '<td>GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">';
-print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-print '<input type="hidden" name="action" value="set_GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT">';
-print '<input type="color" value="#b3c6ff">';
+print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '"/>';
+print '<input type="hidden" name="action" value="set_GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT"/>';
+$color2 = (!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT)) ? $conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT : '#b3fff0';
+print '<input type="color" value="'.$color2.'"/>';
+print '<input type="submit" class="button" value="' . $langs->trans("Modify") . '"/>';
 print '</form>';
 print '</td></tr>';
 

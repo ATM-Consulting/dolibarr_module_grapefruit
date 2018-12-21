@@ -62,12 +62,12 @@ class ActionsGrapeFruit
 		{
  			$defaultColor_1 = empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT) ? $conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT : $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1;
  			$defaultColor_2 = empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT) ? $conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_2_DEFAUT : $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2;
-			//var_dump($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT);
+ 			var_dump($defaultColor_1);
 			
 			$userColor_1 = (! empty($user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1)) ? $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_1 : $defaultColor_1;
 			$userColor_2 = (! empty($user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2)) ? $user->conf->MAIN_COLOR_HIGHLIGHT_LINE_2 : $defaultColor_2;
 
-			if(!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR_1_DEFAUT))
+			if(!empty($conf->global->GRAPEFRUIT_HIGHLIGHTLINE_COLOR))
 			{
 				print '<tr><td>Couleur de surbrillance 1</td>';
 				print '<td><div style="height:10px;width:40px;background:'.$defaultColor_1.'">&nbsp</div></td> ';
