@@ -164,7 +164,7 @@ class InterfaceGrapeFruittrigger
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 		} elseif ($action === 'BILL_CREATE') {
 
-			if (! empty($conf->global->GRAPEFRUIT_LINK_INVOICE_TO_SESSION_IF_PROPAL_IS) && $conf->agefodd->enabled) {
+			if (! empty($conf->global->GRAPEFRUIT_LINK_INVOICE_TO_SESSION_IF_PROPAL_IS) && isModEnabled('agefodd')) {
 				if ($object->origin == 'propal' && $object->origin_id > 0) {
 					$db = &$this->db;
 
@@ -308,7 +308,7 @@ class InterfaceGrapeFruittrigger
 				}
 			}
 
-			if (! empty($conf->propal->enabled) && ! empty($conf->global->GRAPEFRUIT_INVOICE_CLASSIFY_BILLED_PROPAL))
+			if (isModEnabled('propal') && ! empty($conf->global->GRAPEFRUIT_INVOICE_CLASSIFY_BILLED_PROPAL))
 			{
 				$object->fetchObjectLinked('','propal',$object->id,$object->element);
 				if (! empty($object->linkedObjects))
@@ -419,7 +419,7 @@ class InterfaceGrapeFruittrigger
         	// classify supplier order delivery status
         	dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 
-        	if (! empty($conf->commande->enabled) && ! empty($conf->fournisseur->enabled) && ! empty($conf->global->GRAPEFRUIT_SUPPLIER_ORDER_CLASSIFY_RECEIPT_ORDER))
+        	if (isModEnabled('commande') && isModEnabled('fournisseur') && ! empty($conf->global->GRAPEFRUIT_SUPPLIER_ORDER_CLASSIFY_RECEIPT_ORDER))
         	{
         		dol_include_once('/grapefruit/class/supplier.commande.dispatch.class.php');
 
@@ -474,7 +474,7 @@ class InterfaceGrapeFruittrigger
 
 			if(!empty($conf->global->GRAPEFRUIT_SET_ORDER_SHIPPED_IF_ALL_PRODUCT_SHIPPED)) TGrappeFruit::setOrderShippedIfAllProductShipped($object);
 
-			if(! empty($conf->expedition->enabled) && !empty($conf->global->MAIN_SUBMODULE_LIVRAISON) && ! empty($conf->global->GRAPEFRUIT_CREATE_DELIVERY_FROM_SHIPPING))
+			if(isModEnabled('expedition') && !empty($conf->global->MAIN_SUBMODULE_LIVRAISON) && ! empty($conf->global->GRAPEFRUIT_CREATE_DELIVERY_FROM_SHIPPING))
 			{
 
 			    include_once DOL_DOCUMENT_ROOT.'/delivery/class/delivery.class.php';
@@ -841,7 +841,7 @@ class InterfaceGrapeFruittrigger
 		 // Bills
 		 elseif ($action === 'BILL_CREATE') {
 
-		 if(!empty($conf->global->GRAPEFRUIT_LINK_INVOICE_TO_SESSION_IF_PROPAL_IS) && $conf->agefodd->enabled) {
+		 if(!empty($conf->global->GRAPEFRUIT_LINK_INVOICE_TO_SESSION_IF_PROPAL_IS) && isModEnabled('agefodd')) {
 		 //        		var_dump($object->origin, $object->origin_id);
 		 if($object->origin == 'propal' && $object->origin_id>0) {
 		 $db = &$this->db;

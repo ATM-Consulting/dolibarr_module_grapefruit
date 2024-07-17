@@ -78,7 +78,7 @@ foreach($linkedObjectBlock as $key => $objectlink)
     	?></td>
     	<td align="center"><?php echo dol_print_date($objectlink->date,'day'); ?></td>
     	<td align="right"><?php
-    		if ($user->rights->commande->lire) {
+    		if ($user->hasRight('commande', 'lire')) {
     			$total = $total + $objectlink->total_ht;
     			echo price($objectlink->total_ht);
     		} ?></td>

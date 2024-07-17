@@ -853,7 +853,7 @@ class TGrappeFruit
 					}
 				}
 
-				if (empty($error) && $conf->multicompany->enabled) {
+				if (empty($error) && isModEnabled('multicompany')) {
 					//Create rights on each entity
 					$sqlentity="SELECT rowid FROM ".MAIN_DB_PREFIX."entity WHERE active=1 AND rowid<>1";
 					$resqlentity=$db->query($sqlentity);
@@ -957,7 +957,7 @@ class TGrappeFruit
 		}
 
 		$text = $langs->trans('ConfirmValidateBill', $numref);
-		if (! empty($conf->notification->enabled)) {
+		if (isModEnabled('notification')) {
 			require_once DOL_DOCUMENT_ROOT . '/core/class/notify.class.php';
 			$notify = new Notify($db);
 			$text .= '<br>';

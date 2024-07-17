@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/report.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/core/modules/supplier_invoice/modules_facturefournisseur.php';
-if (! empty($conf->projet->enabled)) {
+if (isModEnabled('projet')) {
 	require_once DOL_DOCUMENT_ROOT . '/core/class/html.formprojet.class.php';
 }
 
@@ -44,7 +44,7 @@ $langs->load('orders');
 $langs->load('deliveries');
 $langs->load('companies');
 
-if (! $user->rights->fournisseur->facture->creer)
+if (! $user->hasRight('fournisseur', 'facture', 'creer'))
 	accessforbidden();
 
 $id = (GETPOST('id','int') ? GETPOST('id', 'int') : GETPOST("facid")); // For backward compatibility
@@ -94,7 +94,7 @@ $hookmanager->initHooks(array('orderstoinvoicesupplier'));
 if (($action == 'create' || $action == 'add') && empty($mesgs)) {
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/fourn.lib.php';
-	if (! empty($conf->projet->enabled))
+	if (isModEnabled('projet'))
 		require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 
 	$langs->load('bills');
@@ -131,7 +131,7 @@ if (($action == 'create' || $action == 'add') && empty($mesgs)) {
 	$object = new FactureFournisseur($db);
 
 	// Insert new invoice in database
-	if ($action == 'add' && $user->rights->fournisseur->facture->creer) {
+	if ($action == 'add' && $user->hasRight('fournisseur', 'facture', 'creer')) {
 		$object->socid = GETPOST('socid','int');
 		$db->begin();
 		$error = 0;
@@ -311,7 +311,7 @@ if ($action == 'create' && !$error) {
 	$html->select_types_paiements(isset($_POST['mode_reglement_id']) ? $_POST['mode_reglement_id'] : $mode_reglement_id, 'mode_reglement_id');
 	print '</td></tr>';
 	// Project
-	if (! empty($conf->projet->enabled)) {
+	if (isModEnabled('projet')) {
 		$formproject = new FormProjets($db);
 
 		$langs->load('projects');
@@ -399,14 +399,14 @@ if (($action != 'create' && $action != 'add') && !$error) {
 	$sql .= ' c.date_valid, c.date_commande, c.date_livraison, c.fk_statut';
 	$sql .= ' FROM ' . MAIN_DB_PREFIX . 'societe as s';
 	$sql .= ', ' . MAIN_DB_PREFIX . 'commande_fournisseur as c';
-	if (! $user->rights->societe->client->voir && ! $socid)
+	if (! $user->hasRight('societe', 'client', 'voir') && ! $socid)
 		$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 	$sql .= ' WHERE c.entity = ' . $conf->entity;
 	$sql .= ' AND c.fk_soc = s.rowid';
 
 	// Show orders with status validated, shipping started and delivered (well any order we can bill)
 	/* SPECIFIQUE GRAPEFRUIT */
-	if ($conf->grapefruit->enabled && !empty($conf->global->GRAPEFRUIT_SUPPLIER_FORCE_BT_ORDER_TO_INVOICE)) $sql .= " AND c.fk_statut IN (2,3,4,5)";
+	if (isModEnabled('grapefruit') && !empty($conf->global->GRAPEFRUIT_SUPPLIER_FORCE_BT_ORDER_TO_INVOICE)) $sql .= " AND c.fk_statut IN (2,3,4,5)";
 	else $sql .= " AND c.fk_statut IN (5)";
 	/* */
 	
@@ -415,7 +415,7 @@ if (($action != 'create' && $action != 'add') && !$error) {
 
 	if ($socid)
 		$sql .= ' AND s.rowid = ' . $socid;
-	if (! $user->rights->societe->client->voir && ! $socid)
+	if (! $user->hasRight('societe', 'client', 'voir') && ! $socid)
 		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . $user->id;
 	if ($sref) {
 		$sql .= " AND c.ref LIKE '%" . $db->escape($sref) . "%'";

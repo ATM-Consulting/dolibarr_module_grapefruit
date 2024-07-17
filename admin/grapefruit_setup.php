@@ -239,7 +239,7 @@ echo ajax_constantonoff('GRAPEFRUIT_PROJECT_AUTO_WIN');
 print '</form>';
 print '</td></tr>';
 
-if(!empty($conf->multicompany->enabled)) {
+if(isModEnabled('multicompany')) {
 
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("set_GRAPEFRUIT_DISALLOW_SAME_REF_MULTICOMPANY").'</td>';
@@ -422,7 +422,7 @@ print '<td align="right" width="300">';
 echo ajax_constantonoff('GRAPEFRUIT_FORCE_VAR_HIDEREF_ON_SUPPLIER_ORDER');
 print '</td></tr>';
 
-if (! empty($conf->fournisseur->enabled) && ! empty($conf->commande->enabled) && ! empty($conf->stock->enabled) && ! empty($conf->global->STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER)) {
+if (isModEnabled('fournisseur') && isModEnabled('commande') && isModEnabled('stock') && ! empty($conf->global->STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER)) {
 
 
 	print '<tr class="oddeven">';
@@ -676,7 +676,7 @@ print '<input type="submit" class="button" value="' . $langs->trans("Modify") . 
 print '</form>';
 print '</td></tr>';
 
-if ($conf->facture->enabled) {
+if (isModEnabled('facture')) {
 
 	print '<tr class="liste_titre">';
 	print '<td>' . $langs->trans("Bill") . '</td>' . "\n";
@@ -819,7 +819,7 @@ if ($conf->facture->enabled) {
 
 }
 
-if ($conf->agefodd->enabled) {
+if (isModEnabled('agefodd')) {
 
 	print '<tr class="liste_titre">';
 	print '<td>' . $langs->trans("Agefodd") . '</td>' . "\n";

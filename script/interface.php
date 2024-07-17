@@ -50,7 +50,7 @@ function _updateTVA($element, $element_id, $default_tva)
 		dol_include_once('/comm/propal/class/propal.class.php');
 		dol_include_once('/commande/class/commande.class.php');
 		dol_include_once('/compta/facture/class/facture.class.php');
-		if (!empty($conf->subtotal->enabled)) dol_include_once('/subtotal/class/subtotal.class.php');
+		if (isModEnabled('subtotal')) dol_include_once('/subtotal/class/subtotal.class.php');
 		
 		$langs->load('grapefruit@grapefruit');
 
@@ -65,7 +65,7 @@ function _updateTVA($element, $element_id, $default_tva)
 		$res = 1;
 		foreach ($object->lines as &$l)
 		{
-			if (!empty($conf->subtotal->enabled) && (TSubtotal::isTitle($l) || TSubtotal::isSubtotal($l)) ) continue;
+			if (isModEnabled('subtotal') && (TSubtotal::isTitle($l) || TSubtotal::isSubtotal($l)) ) continue;
 
 			switch ($object->element) {
 				case 'propal':
@@ -108,7 +108,7 @@ function _updateProgress($element_id, $default_progress)
 	if (!empty($conf->global->GRAPEFRUIT_SITUATION_INVOICE_DEFAULT_PROGRESS) && is_numeric($default_progress))
 	{
 		dol_include_once('/compta/facture/class/facture.class.php');
-		if (!empty($conf->subtotal->enabled)) dol_include_once('/subtotal/class/subtotal.class.php');
+		if (isModEnabled('subtotal')) dol_include_once('/subtotal/class/subtotal.class.php');
 		
 		$object = new Facture($db);
 		$object->fetch($element_id);
@@ -119,7 +119,7 @@ function _updateProgress($element_id, $default_progress)
 		$nb_progress_updated = $nb_progress_not_updated = 0;
 		foreach ($object->lines as &$l)
 		{
-			if (!empty($conf->subtotal->enabled) && (TSubtotal::isTitle($l) || TSubtotal::isSubtotal($l)) ) continue;
+			if (isModEnabled('subtotal') && (TSubtotal::isTitle($l) || TSubtotal::isSubtotal($l)) ) continue;
 
 			$prev_percent = $l->get_prev_progress($object->id);
 			if ($default_progress >= $prev_percent)
