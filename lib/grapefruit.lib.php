@@ -57,7 +57,7 @@ function grapefruitAdminPrepareHead()
 function addPuHtRemise($nbcolumn, &$object) {
     global $langs, $conf;
 
-    if($conf->subtotal->enabled && ! class_exists('TSubtotal')) dol_include_once('/subtotal/class/subtotal.class.php');
+    if(isModEnabled('subtotal') && ! class_exists('TSubtotal')) dol_include_once('/subtotal/class/subtotal.class.php');
 
     ?>
         <script type="text/javascript">
@@ -86,7 +86,7 @@ function addPuHtRemise($nbcolumn, &$object) {
                 if(!empty($object->lines)) {
 			    	foreach($object->lines as $line){
 						if($line->rowid) $line->id = $line->rowid;
-                        if($conf->subtotal->enabled && TSubtotal::isModSubtotalLine($line)) continue;
+                        if(isModEnabled('subtotal') && TSubtotal::isModSubtotalLine($line)) continue;
 
 						echo "$('#row-".$line->id." td.pu_ht_remise').html('".price($line->subprice*(1-$line->remise_percent/100),0,'',1,$conf->global->MAIN_MAX_DECIMALS_TOT,$conf->global->MAIN_MAX_DECIMALS_TOT)."');";
                         if($line->error != '') echo "alert('".$line->error."');";

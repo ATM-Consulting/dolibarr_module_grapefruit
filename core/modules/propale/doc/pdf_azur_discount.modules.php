@@ -336,7 +336,7 @@ class pdf_azur_discount extends ModelePDFPropales
 
 				// Incoterm
 				$height_incoterms = 0;
-				if ($conf->incoterm->enabled)
+				if (isModEnabled('incoterm'))
 				{
 					$desc_incoterms = $object->getIncotermsForPDF();
 					if ($desc_incoterms)
@@ -694,17 +694,17 @@ class pdf_azur_discount extends ModelePDFPropales
 
 										if (! empty($conf->global->PRODUCT_USE_OLD_PATH_FOR_PHOTO))
 										{
-											if (! empty($conf->product->enabled)) {
+											if (isModEnabled('product')) {
 												$filetomerge_dir = $conf->product->multidir_output[$entity_product_file] . '/' . get_exdir($product->id,2,0,0,$product,'product') . $product->id ."/photos";
-											} elseif (! empty($conf->service->enabled)) {
+											} elseif (isModEnabled('service')) {
 												$filetomerge_dir = $conf->service->multidir_output[$entity_product_file] . '/' . get_exdir($product->id,2,0,0,$product,'product') . $product->id ."/photos";
 											}
 										}
 										else
 										{
-											if (! empty($conf->product->enabled)) {
+											if (isModEnabled('product')) {
 												$filetomerge_dir = $conf->product->multidir_output[$entity_product_file] . '/' . get_exdir(0,0,0,0,$product,'product') . dol_sanitizeFileName($product->ref);
-											} elseif (! empty($conf->service->enabled)) {
+											} elseif (isModEnabled('service')) {
 												$filetomerge_dir = $conf->service->multidir_output[$entity_product_file] . '/' . get_exdir(0,0,0,0,$product,'product') . dol_sanitizeFileName($product->ref);
 											}
 										}

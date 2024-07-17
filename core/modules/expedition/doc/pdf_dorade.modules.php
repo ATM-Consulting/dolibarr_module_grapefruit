@@ -197,7 +197,7 @@ class pdf_dorade extends ModelePdfExpedition
 
 				// Incoterm
 				$height_incoterms = 0;
-				if ($conf->incoterm->enabled)
+				if (isModEnabled('incoterm'))
 				{
 					$desc_incoterms = $object->getIncotermsForPDF();
 					if ($desc_incoterms)
@@ -550,7 +550,7 @@ class pdf_dorade extends ModelePdfExpedition
 		}
 
 		// Show barcode
-		if (! empty($conf->barcode->enabled))
+		if (isModEnabled('barcode'))
 		{
 			$posx=105;
 		}
@@ -559,7 +559,7 @@ class pdf_dorade extends ModelePdfExpedition
 			$posx=$this->marge_gauche+3;
 		}
 		//$pdf->Rect($this->marge_gauche, $this->marge_haute, $this->page_largeur-$this->marge_gauche-$this->marge_droite, 30);
-		if (! empty($conf->barcode->enabled))
+		if (isModEnabled('barcode'))
 		{
 			// TODO Build code bar with function writeBarCode of barcode module for sending ref $object->ref
 			//$pdf->SetXY($this->marge_gauche+3, $this->marge_haute+3);
@@ -567,7 +567,7 @@ class pdf_dorade extends ModelePdfExpedition
 		}
 
 		$pdf->SetDrawColor(128,128,128);
-		if (! empty($conf->barcode->enabled))
+		if (isModEnabled('barcode'))
 		{
 			// TODO Build code bar with function writeBarCode of barcode module for sending ref $object->ref
 			//$pdf->SetXY($this->marge_gauche+3, $this->marge_haute+3);

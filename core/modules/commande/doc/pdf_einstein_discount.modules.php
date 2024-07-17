@@ -283,7 +283,7 @@ class pdf_einstein_discount extends ModelePDFCommandes
 
 				// Incoterm
 				$height_incoterms = 0;
-				if ($conf->incoterm->enabled)
+				if (isModEnabled('incoterm'))
 				{
 					$desc_incoterms = $object->getIncotermsForPDF();
 					if ($desc_incoterms)

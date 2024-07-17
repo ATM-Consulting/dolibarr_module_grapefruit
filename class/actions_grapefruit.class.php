@@ -77,8 +77,8 @@ class ActionsGrapeFruit
 				&& !empty($conf->global->GRAPEFRUIT_ALLOW_CREATE_BILL_EXPRESS)
 				&& $object->statut > Commande::STATUS_DRAFT
 				&& !$object->billed
-				&& !empty($conf->facture->enabled)
-				&& $user->rights->facture->creer
+				&& isModEnabled('facture')
+				&& $user->hasRight('facture', 'creer')
 				&& empty($conf->global->WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER)) {
 
 				TGrappeFruit::createFactureFromObject($object);
@@ -229,7 +229,7 @@ class ActionsGrapeFruit
 		{
 			if($action === 'create') {
 
-				if ($conf->grapefruit->enabled && $conf->global->GRAPEFRUIT_PROPAL_DEFAULT_BANK_ACOUNT > 0)
+				if (isModEnabled('grapefruit') && $conf->global->GRAPEFRUIT_PROPAL_DEFAULT_BANK_ACOUNT > 0)
 				{
 					?>
 					<script type="text/javascript">
@@ -285,8 +285,8 @@ class ActionsGrapeFruit
 			if(!empty($conf->global->GRAPEFRUIT_ALLOW_CREATE_BILL_EXPRESS)
 				&& $object->statut > Commande::STATUS_DRAFT
 				&& !$object->billed
-				&& !empty($conf->facture->enabled)
-				&& $user->rights->facture->creer
+				&& isModEnabled('facture')
+				&& $user->hasRight('facture', 'creer')
 				&& empty($conf->global->WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER)) {
 
 				?>
@@ -325,7 +325,7 @@ class ActionsGrapeFruit
             if (GETPOST('action', 'alpha') == 'create') {
                 $variablesPHPToJs = array(
                     'useCKEditor' => (!empty($conf->global->PDF_ALLOW_HTML_FOR_FREE_TEXT)
-                                   && !empty($conf->fckeditor->enabled))
+                                   && isModEnabled('fckeditor'))
                 );
                 $origin = GETPOST('origin', 'alpha');
                 $originId = intval(GETPOST('originid', 'int'));
@@ -439,7 +439,7 @@ class ActionsGrapeFruit
 		}
 
 		if(in_array('invoicesuppliercard',$TContext) && !empty($conf->global->GRAPEFRUIT_ALLOW_UPDATE_SUPPLIER_INVOICE_DATE) && empty($object->paye) && $action !== 'editdatef'
-			&& (empty($conf->exportcompta->enabled) || (!empty($conf->exportcompta->enabled) && empty($object->array_options['options_date_compta'])))) {
+			&& (!isModEnabled('exportcompta') || (isModEnabled('exportcompta') && empty($object->array_options['options_date_compta'])))) {
 
 			?>
 
@@ -486,7 +486,7 @@ class ActionsGrapeFruit
 
 		if (in_array('suppliercard',$TContext) && !empty($conf->global->GRAPEFRUIT_SUPPLIER_FORCE_BT_ORDER_TO_INVOICE))
 		{
-			if ($user->rights->fournisseur->facture->creer)
+			if ($user->hasRight('fournisseur', 'facture', 'creer'))
 			{
 				?>
 				<script type="text/javascript">
@@ -784,7 +784,7 @@ class ActionsGrapeFruit
 	{
 		global $user, $conf, $db, $langs;
 
-		if ($parameters['currentcontext'] == 'index' && !empty($conf->global->GRAPEFRUIT_FILTER_HOMEPAGE_BY_USER) && !empty($user->rights->societe->client->voir))
+		if ($parameters['currentcontext'] == 'index' && !empty($conf->global->GRAPEFRUIT_FILTER_HOMEPAGE_BY_USER) && !empty($user->hasRight('societe', 'client', 'voir')))
 		{
 			$langs->load('grapefruit@grapefruit');
 			dol_include_once('/core/class/html.form.class.php');
@@ -794,7 +794,7 @@ class ActionsGrapeFruit
 
 			if ($mode == 'filtered')
 			{
-				unset($user->rights->societe->client->voir);
+				unset($user->hasRight('societe', 'client', 'voir'));
 
 				print '<p id="homepagemode" align="right">';
 				print '<a href="'.$_SERVER["PHP_SELF"].'?homepagemode=notfiltered">'.$langs->trans('WorkingBoardNotFiltered').'</a>';

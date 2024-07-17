@@ -341,7 +341,7 @@ class pdf_crabe_discount extends ModelePDFFactures
 
 				// Incoterm
 				$height_incoterms = 0;
-				if ($conf->incoterm->enabled)
+				if (isModEnabled('incoterm'))
 				{
 					if (is_object($object->thirdparty))
 					{

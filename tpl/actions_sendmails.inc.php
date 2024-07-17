@@ -94,7 +94,7 @@ if(! empty($_POST['removAll']))
  */
 if (($action == 'send' || $action == 'relance') && ! $_POST['addfile'] && ! $_POST['removAll'] && ! $_POST['removedfile'] && ! $_POST['cancel'] && !$_POST['modelselected'])
 {
-	if($conf->dolimail->enabled) $langs->load("dolimail@dolimail");
+	if(isModEnabled('dolimail')) $langs->load("dolimail@dolimail");
 	$langs->load('mails');
 
 	$subject='';$actionmsg='';$actionmsg2='';
@@ -112,7 +112,7 @@ if (($action == 'send' || $action == 'relance') && ! $_POST['addfile'] && ! $_PO
 	{
 		$thirdparty=$object;
 		if ($thirdparty->id > 0) $sendtosocid=$thirdparty->id;
-		elseif($conf->dolimail->enabled)
+		elseif(isModEnabled('dolimail'))
 		{
 			$dolimail = new Dolimail($db);
 			$possibleaccounts=$dolimail->get_societe_by_email($_POST['sendto'],"1");
@@ -225,7 +225,7 @@ if (($action == 'send' || $action == 'relance') && ! $_POST['addfile'] && ! $_PO
 			$trackid = GETPOST('trackid','aZ09');
 
 			// Feature to push mail sent into Sent folder
-			if (! empty($conf->dolimail->enabled))
+			if (isModEnabled('dolimail'))
 			{
 				$mailfromid = explode("#", $_POST['frommail'],3);	// $_POST['frommail'] = 'aaa#Sent# <aaa@aaa.com>'	// TODO Use a better way to define Sent dir.
 				if (count($mailfromid)==0) $from = $_POST['fromname'] . ' <' . $_POST['frommail'] .'>';
@@ -282,7 +282,7 @@ if (($action == 'send' || $action == 'relance') && ! $_POST['addfile'] && ! $_PO
 					$error=0;
 					
 					// FIXME This must be moved into a trigger for action $trigger_name
-					if (! empty($conf->dolimail->enabled))
+					if (isModEnabled('dolimail'))
 					{
 						$mid = (GETPOST('mid','int') ? GETPOST('mid','int') : 0);	// Original mail id is set ?
 						if ($mid)
