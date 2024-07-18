@@ -60,7 +60,7 @@ function grapefruite_completesubstitutionarray(&$substitutionarray,$outputlangs,
 			if (!is_object($value) && !is_array($value))
 			{
 				$substitutionarray['__OBJECT_'.strtoupper($attr).'__'] = $value;
-				if(strpos($attr, 'date') !== false) {
+				if(strpos($attr, 'date') !== false && is_int($value)) {
 					$substitutionarray['__OBJECT_'.strtoupper($attr).'_FORMATED__'] = dol_print_date($value);
 				}
 			}
